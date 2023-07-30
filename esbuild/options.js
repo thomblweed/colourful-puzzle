@@ -3,5 +3,6 @@ export const options = {
   bundle: true,
   platform: 'node',
   target: ['node18.17'],
+  format: 'esm',
   outdir: 'dist',
 };

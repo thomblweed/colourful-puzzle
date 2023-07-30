@@ -1,1 +1,1 @@
-console.log('Hello, world again!');
+export const addNumbers = (a: number, b: number) => a + b;
