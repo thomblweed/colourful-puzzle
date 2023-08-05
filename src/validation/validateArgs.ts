@@ -1,4 +1,4 @@
-import { validateReadFile } from './read-file/validateReadFile';
+import { validateReadFileArg } from './read-file/validateReadFileArg';
 import { validateSingleArgs } from './single-args/validateSingleArgs';
 
 export const validateArgs = (): string[] => {
@@ -7,7 +7,7 @@ export const validateArgs = (): string[] => {
   if (singleArgValidationMessage) {
     validationMessages.push(singleArgValidationMessage);
   }
-  const canReadFileMessage = validateReadFile();
+  const canReadFileMessage = validateReadFileArg();
   if (canReadFileMessage) {
     validationMessages.push(canReadFileMessage);
   }

@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-export const validateReadFile = (): string | undefined => {
+export const validateReadFileArg = (): string | undefined => {
   const filePath = process.argv[2];
   try {
     fs.readFileSync(filePath);

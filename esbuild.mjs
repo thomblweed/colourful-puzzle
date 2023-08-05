@@ -7,4 +7,5 @@ await esbuild.build({
   target: ['node18.17'],
   format: 'cjs',
   outdir: 'dist',
+  minify: true,
 });
