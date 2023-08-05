@@ -1,9 +1,11 @@
-import { validateSingleArgs } from './validate/validateSingleArgs';
+import { validateArgs } from './validate/validateArgs';
 
 const main = () => {
-  const validationMessage = validateSingleArgs();
-  if (validationMessage) {
-    console.error(validationMessage);
+  const validationMessages = validateArgs();
+  if (validationMessages.length > 0) {
+    validationMessages.forEach((message) => {
+      console.error(message);
+    });
     process.exit(1);
   }
 };
