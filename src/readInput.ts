@@ -26,7 +26,7 @@ export const readInput = async (): Promise<[number, number, Brick[]]> => {
     throw new Error('Problem description is invalid');
   }
 
-  const numColors = parseInt(problemData[0], 10);
+  const numColours = parseInt(problemData[0], 10);
   const numRows = parseInt(problemData[1], 10);
   const numBricks = parseInt(problemData[2], 10);
 
@@ -43,5 +43,5 @@ export const readInput = async (): Promise<[number, number, Brick[]]> => {
     });
   }
 
-  return [numColors, numRows, bricks];
+  return [numColours, numRows, bricks];
 };
