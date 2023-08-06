@@ -1,9 +1,5 @@
 import * as readline from 'readline';
-
-interface Brick {
-  colours: number[];
-  scores: number[];
-}
+import { Brick } from './types/brick.type';
 
 export const readInput = async (): Promise<[number, number, Brick[]]> => {
   const lines: string[] = [];
