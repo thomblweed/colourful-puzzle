@@ -7,11 +7,12 @@ async function main() {
   const puzzle = new Puzzle(numColours, numColumns);
   puzzle.addBricks(bricks);
   const score = puzzle.score;
-  const rowsBrickNumbers = puzzle.getRowsBrickNumbers();
+  const columnsBrickNumbers = puzzle.getColumnsBrickNumbers();
 
   console.log(score);
-  rowsBrickNumbers.forEach((row) => {
-    console.log(row.join(' '));
+  columnsBrickNumbers.forEach((column) => {
+    const columnNumbers = column.join(' ');
+    console.log(columnNumbers);
   });
 }
 

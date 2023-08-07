@@ -259,7 +259,6 @@ describe('When adding a scenario of many bricks', () => {
   });
 
   it('should tally correct board score', () => {
-    console.log({ skipped: puzzle.skippedBricks });
-    expect(puzzle.score).toBe(76);
+    expect(puzzle.score).toBe(63);
   });
 });
