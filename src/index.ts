@@ -1,23 +1,18 @@
+import { Puzzle } from './puzzle';
 import { readInput } from './readInput';
 
 async function main() {
   const [numColours, numColumns, bricks] = await readInput();
 
-  const columns = Array(numColumns).fill(
-    Array.from({ length: numColours }).fill(0)
-  );
+  const puzzle = new Puzzle(numColours, numColumns);
+  puzzle.addBricks(bricks);
+  const score = puzzle.score;
+  const rowsBrickNumbers = puzzle.getRowsBrickNumbers();
 
-  bricks.forEach((brick) => {
-    const { colours, scores } = brick;
-    console.log({ brick });
+  console.log(score);
+  rowsBrickNumbers.forEach((row) => {
+    console.log(row.join(' '));
   });
-
-  // A placeholder algorithm
-  // Print the score of the first brick
-  //   console.log(bricks[0].scores.reduce((sum, score) => sum + score, 0));
-
-  // Print the index of the first brick
-  //   console.log('0');
 }
 
 main();
