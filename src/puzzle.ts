@@ -1,3 +1,4 @@
+import { test } from 'node:test';
 import { Brick } from './types/brick.type';
 
 type ColourRow = { score: number; brickNumber: number | null };
@@ -5,6 +6,8 @@ type ColourRow = { score: number; brickNumber: number | null };
 export class Puzzle {
   private _board: ColourRow[][];
   private _score = 0;
+  private _allBricks: Brick[] = [];
+  private _sortedBricksByHighestScore: Brick[] = [];
 
   constructor(numColours: number, numColumns: number) {
     this._board = Array.from({ length: numColumns }, () =>
@@ -23,10 +26,30 @@ export class Puzzle {
     return this._score;
   }
 
+  public get sortedBricksByHighestScore() {
+    return this._sortedBricksByHighestScore;
+  }
+
   public addBricks(bricks: Brick[]) {
-    bricks.forEach((brick, brickNumber) => {
+    this._allBricks = bricks;
+    this._sortedBricksByHighestScore = this.sortBricksByHighestScore();
+    // bricks.forEach((brick, brickNumber) => {
+    //   this.addBrickToAvailableColumn(brick, brickNumber);
+    // });
+    this._sortedBricksByHighestScore.forEach((brick, brickNumber) => {
       this.addBrickToAvailableColumn(brick, brickNumber);
     });
+  }
+
+  private sortBricksByHighestScore() {
+    return this._allBricks
+      .sort((a, b) => {
+        return (
+          a.scores.reduce((a, b) => a + b, 0) -
+          b.scores.reduce((a, b) => a + b, 0)
+        );
+      })
+      .reverse();
   }
 
   private addBrickToAvailableColumn(brick: Brick, brickNumber: number) {
