@@ -2,10 +2,12 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { Puzzle } from './puzzle';
 
-const instantiatedBoardData = Array(4).fill(
+const instantiatedBoardData = Array.from({ length: 4 }, () =>
   Array.from({ length: 5 }).fill({ score: 0, brickNumber: null })
 );
 let expectedBoardData = [...instantiatedBoardData];
+
+type ColourRow = { score: number; brickNumber: number | null };
 
 describe('When creating a new board', () => {
   const numColours = 5;
@@ -54,6 +56,7 @@ describe('When adding a single brick to the board', () => {
       { score: 0, brickNumber: null },
       { score: 2, brickNumber: 0 },
     ]);
+
     expect(puzzle.board).toEqual(expectedBoardData);
   });
 });

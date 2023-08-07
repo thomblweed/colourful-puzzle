@@ -6,8 +6,11 @@ export class Puzzle {
   private _board: ColourRow[][];
 
   constructor(numColours: number, numColumns: number) {
-    this._board = Array(numColumns).fill(
-      Array.from({ length: numColours }).fill({ score: 0, brickNumber: null })
+    this._board = Array.from({ length: numColumns }, () =>
+      Array.from<ColourRow>({ length: numColours }).fill({
+        score: 0,
+        brickNumber: null,
+      })
     );
   }
 
@@ -18,15 +21,10 @@ export class Puzzle {
   public addBricks(bricks: Brick[]) {
     bricks.forEach((brick, brickNumber) => {
       const { colours, scores } = brick;
-      console.log({ colours });
 
       for (let i = 0; i < colours.length; i++) {
         this.updateFirstAvailableColumnRow(colours[i], brickNumber, scores[i]);
       }
-
-      this._board.forEach((column) => {
-        console.log({ ALL: column });
-      });
     });
   }
 
@@ -35,14 +33,10 @@ export class Puzzle {
     brickNumber: number,
     score: number
   ): void {
-    for (let i = 0; i < this.board.length; i++) {
-      const column = this.board[i];
-      const colourRow = column[colour];
-      console.log({ BEFORE: column });
-      if (colourRow.brickNumber === null) {
-        const updatedColourRow: ColourRow = { score, brickNumber };
-        column.splice(colour, 1, updatedColourRow);
-        console.log({ AFTER: column });
+    for (let i = 0; i < this._board.length; i++) {
+      const column = this._board[i];
+      if (column[colour].brickNumber === null) {
+        column[colour] = { score, brickNumber };
         break;
       }
     }
