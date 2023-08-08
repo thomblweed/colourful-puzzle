@@ -6,13 +6,14 @@ async function main() {
 
   const puzzle = new Puzzle(numColours, numColumns);
   puzzle.addBricks(bricks);
-  const score = puzzle.score;
+  const totalPuzzleScore = puzzle.score;
   const columnsBrickNumbers = puzzle.getColumnsBrickNumbers();
 
-  console.log(score);
+  console.log(totalPuzzleScore);
+
   columnsBrickNumbers.forEach((column) => {
-    const columnNumbers = column.join(' ');
-    console.log(columnNumbers);
+    const columnBrickNumbers = column.join(' ');
+    console.log(columnBrickNumbers);
   });
 }
 

@@ -281,7 +281,7 @@ describe('When adding all the required bricks for the puzzle', () => {
   });
 
   it('should add all bricks to the correct columns', () => {
-    const expectedBoardData = [
+    expectedBoardData = [
       [
         { score: 3, brickNumber: 3 },
         { score: 0, brickNumber: null },
