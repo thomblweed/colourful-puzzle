@@ -36,6 +36,7 @@ export const readInput = async (): Promise<[number, number, Brick[]]> => {
     bricks.push({
       colours,
       scores,
+      number: idx - 1,
     });
   }
 

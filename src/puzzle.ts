@@ -1,4 +1,3 @@
-import { test } from 'node:test';
 import { Brick } from './types/brick.type';
 
 type ColourRow = { score: number; brickNumber: number | null };
@@ -32,36 +31,47 @@ export class Puzzle {
 
   public addBricks(bricks: Brick[]) {
     this._allBricks = bricks;
-    this._sortedBricksByHighestScore = this.sortBricksByHighestScore();
-    // bricks.forEach((brick, brickNumber) => {
-    //   this.addBrickToAvailableColumn(brick, brickNumber);
-    // });
-    this._sortedBricksByHighestScore.forEach((brick, brickNumber) => {
-      this.addBrickToAvailableColumn(brick, brickNumber);
+    this._sortedBricksByHighestScore = this.sortBricksByHighestScore(
+      this._allBricks
+    );
+    this._sortedBricksByHighestScore.forEach((brick) => {
+      this.addBrickToAvailableColumn(brick);
     });
   }
 
-  private sortBricksByHighestScore() {
-    return this._allBricks
-      .sort((a, b) => {
-        return (
-          a.scores.reduce((a, b) => a + b, 0) -
-          b.scores.reduce((a, b) => a + b, 0)
-        );
-      })
+  public getColumnsBrickNumbers() {
+    return this._board.map((column) => {
+      const bricksWithNumbers = column.filter(
+        (colourRow) => colourRow.brickNumber !== null
+      );
+      const distinctBrickNumbers = Array.from(
+        new Set(bricksWithNumbers.map((colourRow) => colourRow.brickNumber))
+      );
+
+      return distinctBrickNumbers;
+    });
+  }
+
+  private sortBricksByHighestScore(unsortedBricks: Brick[]) {
+    return unsortedBricks
+      .sort(
+        (a, b) =>
+          this.calculateBrickScore(a.scores) -
+          this.calculateBrickScore(b.scores)
+      )
       .reverse();
   }
 
-  private addBrickToAvailableColumn(brick: Brick, brickNumber: number) {
+  private addBrickToAvailableColumn(brick: Brick) {
     const { colours, scores } = brick;
-    for (let i = 0; i < this._board.length; i++) {
+    for (let i = this._board.length - 1; i >= 0; i--) {
       const column = this._board[i];
       const isColumnCompatible = colours.every((colour) => {
         return column[colour].brickNumber === null;
       });
 
       if (isColumnCompatible) {
-        this.updateColumnAndScore(colours, column, scores, brickNumber);
+        this.updateColumnAndScore(colours, column, scores, brick.number);
         break;
       }
     }
@@ -89,18 +99,5 @@ export class Puzzle {
 
   private updateScore(brickScore: number) {
     this._score = this._score + brickScore;
-  }
-
-  public getColumnsBrickNumbers() {
-    return this._board.map((column) => {
-      const bricksWithNumbers = column.filter(
-        (colourRow) => colourRow.brickNumber !== null
-      );
-      const distinctBrickNumbers = Array.from(
-        new Set(bricksWithNumbers.map((colourRow) => colourRow.brickNumber))
-      );
-
-      return distinctBrickNumbers;
-    });
   }
 }
